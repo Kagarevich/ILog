@@ -79,29 +79,6 @@ namespace ILog
             return fileInfo;
         }
 
-        void CreatDirectionDebugFormat()
-        {
-            CreatDirection();
-            string currentPath = @"..\..\..\..\logs\" + DateTime.Today.Date.ToString("d");
-            DirectoryInfo directionInfo = new DirectoryInfo(currentPath);
-            if (!directionInfo.Exists)
-            {
-                directionInfo.Create();
-            }
-        }
-
-        FileInfo CreatDirectionSystemInfo()
-        {
-            CreatDirection();
-            string currentPath = string.Concat(@"..\..\..\..\logs\", DateTime.Today.Date.ToString("d"), @"\SystemInfo.txt");
-            FileInfo fileInfo = new FileInfo(currentPath);
-            if (!fileInfo.Exists)
-            {
-                fileInfo.CreateText();
-            }
-            return fileInfo;
-        }
-
 
         //Реализация интерфейсов
         //  1/16
@@ -198,10 +175,13 @@ namespace ILog
             streamWriter.Close();
         }
 
+        // 14/16
         public void Info(string message, params object[] args)
         {
-            CreatDirection();
-          
+            var path = CreatDirectionInfo();
+            StreamWriter streamWriter = path.AppendText();
+            streamWriter.WriteLine($"{DateTime.Now} (Debug): {message}; {args}");
+            streamWriter.Close();
         }
 
 
@@ -223,6 +203,7 @@ namespace ILog
             streamWriter.Close();
         }
 
+        // 12/16
         public void DebugFormat(string message, params object[] args)
         {
             var path = CreatDirectionDebug();
@@ -231,10 +212,13 @@ namespace ILog
             streamWriter.Close();
         }
 
+        // 13/16
         public void SystemInfo(string message, Dictionary<object, object> properties = null)
         {
-            CreatDirection();
-            
+            var path = CreatDirectionInfo();
+            StreamWriter streamWriter = path.AppendText();
+            streamWriter.WriteLine($"{DateTime.Now} (SystemInfo): {message}; {properties}");
+            streamWriter.Close();
         }
     }
 }
