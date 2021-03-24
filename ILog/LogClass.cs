@@ -79,6 +79,17 @@ namespace ILog
             return fileInfo;
         }
 
+        void CreatDirectionDebugFormat()
+        {
+            CreatDirection();
+            string currentPath = @"..\..\..\..\logs\" + DateTime.Today.Date.ToString("d");
+            DirectoryInfo directionInfo = new DirectoryInfo(currentPath);
+            if (!directionInfo.Exists)
+            {
+                directionInfo.Create();
+            }
+        }
+
         FileInfo CreatDirectionSystemInfo()
         {
             CreatDirection();
