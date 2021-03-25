@@ -10,7 +10,7 @@ namespace ILog
 
             //Пока что папка log должна существовать изначально в файлах, могу добавить и её создание
             Logger logger = new Logger();
-            logger.Debug("ЯЖИВ2Error");
+            logger.Warning("ЯЖИВ2Error");
         }
     }
 }

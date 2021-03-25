@@ -26,7 +26,8 @@ namespace ILog
             FileInfo fileInfo = new FileInfo(currentPath);
             if (!fileInfo.Exists)
             {
-                fileInfo.CreateText();
+                FileStream fs = fileInfo.Create();
+                fs.Close();
             }
             return fileInfo;
         }
@@ -38,7 +39,8 @@ namespace ILog
             FileInfo fileInfo = new FileInfo(currentPath);
             if (!fileInfo.Exists)
             {
-                fileInfo.CreateText();
+                FileStream fs = fileInfo.Create();
+                fs.Close();
             }
             return fileInfo;
         }
@@ -50,8 +52,10 @@ namespace ILog
             FileInfo fileInfo = new FileInfo(currentPath);
             if (!fileInfo.Exists)
             {
-                fileInfo.CreateText();
+                FileStream fs = fileInfo.Create();
+                fs.Close();
             }
+            
             return fileInfo;
         }
 
@@ -62,7 +66,8 @@ namespace ILog
             FileInfo fileInfo = new FileInfo(currentPath);
             if (!fileInfo.Exists)
             {
-                fileInfo.CreateText();
+                FileStream fs = fileInfo.Create();
+                fs.Close();
             }
             return fileInfo;
         }
@@ -74,7 +79,8 @@ namespace ILog
             FileInfo fileInfo = new FileInfo(currentPath);
             if (!fileInfo.Exists)
             {
-                fileInfo.CreateText();
+                FileStream fs = fileInfo.Create();
+                fs.Close();
             }
             return fileInfo;
         }
