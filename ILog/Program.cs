@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace ILog
 {
@@ -7,10 +7,13 @@ namespace ILog
     {
         static void Main()
         {
-
-            //Пока что папка log должна существовать изначально в файлах, могу добавить и её создание
-            Logger logger = new Logger();
-            logger.Warning("ЯЖИВ2Error");
+            Logger log = new Logger();
+            Dictionary<object, object> newOne = new Dictionary<object, object>();
+            newOne.Add('b', 4);
+            newOne.Add('a', 4);
+            newOne.Add('c', 4);
+            newOne.Add('v', 4);
+            log.SystemInfo("oh...", newOne);
         }
     }
 }

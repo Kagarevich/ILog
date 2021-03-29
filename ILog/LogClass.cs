@@ -7,6 +7,8 @@ namespace ILog
     /// <summary>Класс работы с логом</summary>
     class Logger : ILog
     {
+        private List<string> errorUnique = new List<string>();
+        private List<string> warningUnique = new List<string>();
         /// <summary>Создание папки под даты</summary>
         void CreatDirection()
         {
@@ -132,14 +134,20 @@ namespace ILog
             streamWriter.WriteLine($"{DateTime.Now} (Error): ошибка '{ex.Message}'");
             streamWriter.Close();
         }
-
+        // 6/16
         public void ErrorUnique(string message, Exception e)
         {
-            CreatDirection();
-          
+            if (!errorUnique.Contains($"{e.Message}; {DateTime.Today}"))
+            {
+                errorUnique.Add($"{e.Message}; {DateTime.Today}");
+                var path = CreatDirectionWarning();
+                StreamWriter streamWriter = path.AppendText();
+                streamWriter.WriteLine($"{DateTime.Now} (Unique_Error): ошибка '{e.Message}' {message}");
+                streamWriter.Close();
+            }
         }
 
-        // 6/16
+        // 7/16
         public void Warning(string message)
         {
             var path = CreatDirectionWarning();
@@ -148,7 +156,7 @@ namespace ILog
             streamWriter.Close();
         }
 
-        // 7/16
+        // 8/16
         public void Warning(string message, Exception e)
         {
             var path = CreatDirectionWarning();
@@ -157,13 +165,20 @@ namespace ILog
             streamWriter.Close();
         }
 
+        // 9/16
         public void WarningUnique(string message)
         {
-            CreatDirection();
-           
+            if (!warningUnique.Contains($"{message}; {DateTime.Today}"))
+            {
+                warningUnique.Add($"{message}; {DateTime.Today}");
+                var path = CreatDirectionWarning();
+                StreamWriter streamWriter = path.AppendText();
+                streamWriter.WriteLine($"{DateTime.Now} (Unique_Warning): {message}");
+                streamWriter.Close();
+            }
         }
 
-        // 8/16
+        // 10/16
         public void Info(string message)
         {
             var path = CreatDirectionInfo();
@@ -172,7 +187,7 @@ namespace ILog
             streamWriter.Close();
         }
 
-        // 9/16
+        // 11/16
         public void Info(string message, Exception e)
         {
             var path = CreatDirectionInfo();
@@ -181,17 +196,18 @@ namespace ILog
             streamWriter.Close();
         }
 
-        // 14/16
+        // 12/16
         public void Info(string message, params object[] args)
         {
+            string argsString = String.Join(", ", args);
             var path = CreatDirectionInfo();
             StreamWriter streamWriter = path.AppendText();
-            streamWriter.WriteLine($"{DateTime.Now} (Debug): {message}; {args}");
+            streamWriter.WriteLine($"{DateTime.Now} (Debug): {message}; {argsString}");
             streamWriter.Close();
         }
 
 
-        // 10/16
+        // 13/16
         public void Debug(string message)
         {
             var path = CreatDirectionDebug();
@@ -200,7 +216,7 @@ namespace ILog
             streamWriter.Close();
         }
 
-        // 11/16
+        // 14/16
         public void Debug(string message, Exception e)
         {
             var path = CreatDirectionDebug();
@@ -209,21 +225,23 @@ namespace ILog
             streamWriter.Close();
         }
 
-        // 12/16
+        // 15/16
         public void DebugFormat(string message, params object[] args)
         {
+            string argsString = String.Join(", ", args);
             var path = CreatDirectionDebug();
             StreamWriter streamWriter = path.AppendText();
-            streamWriter.WriteLine($"{DateTime.Now} (Debug): {message}; {args}");
+            streamWriter.WriteLine($"{DateTime.Now} (Debug): {message}; {argsString}");
             streamWriter.Close();
         }
 
-        // 13/16
+        // 16/16
         public void SystemInfo(string message, Dictionary<object, object> properties = null)
         {
+            string propertiesString = String.Join(", ", properties);
             var path = CreatDirectionInfo();
             StreamWriter streamWriter = path.AppendText();
-            streamWriter.WriteLine($"{DateTime.Now} (SystemInfo): {message}; {properties}");
+            streamWriter.WriteLine($"{DateTime.Now} (System_Info): {message}; {propertiesString}");
             streamWriter.Close();
         }
     }
